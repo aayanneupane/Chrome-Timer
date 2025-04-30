@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: 320px;
+      padding: 15px;
+      margin: 0;
+      color: #333;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .tab-buttons {
+      display: flex;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      color: #7f8c8d;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      color: #3498db;
+      border-bottom: 2px solid #3498db;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .usage-container {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .stats {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    /* Consistent styling for both blocked sites and time limits */
+    .site-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f5f5f5;
+      gap: 8px;
+    }
+    .domain-container {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px 10px;
+      flex-grow: 1;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .time-limit-value {
+      flex-shrink: 0;
+      width: 60px;
+      text-align: right;
+      padding-right: 8px;
+    }
+    .action-btn-container {
+      flex-shrink: 0;
+      width: 60px;
+    }
+    .action-btn {
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 0;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .remove-btn {
+      background-color: #e74c3c;
+    }
+    .remove-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="block">Block Sites</button>
+    <button class="tab-btn" data-tab="limits">Time Limits</button>
+  </div>
+
+  <div id="dashboard" class="tab-content active">
+    <h2>Today's Activity</h2>
+    <div class="stats">
+      <div>Browser Uptime: <span id="uptime">00:00:00</span></div>
+      <div>Total Today: <span id="totalTime">00:00:00</span></div>
+    </div>
+    <div class="usage-container" id="usageList"></div>
+  </div>
+
+  <div id="block" class="tab-content">
+    <h2>Blocked Websites</h2>
+    <div class="input-group">
+      <input id="blockInput" placeholder="Enter domain (e.g. youtube.com)" />
+      <button id="addBlockBtn">Add to Block List</button>
+    </div>
+    <div class="usage-container" id="blockedList"></div>
+  </div>
+
+  <div id="limits" class="tab-content">
+    <h2>Website Time Limits</h2>
+    <div class="input-group">
+      <input id="limitDomain" placeholder="Enter domain" />
+      <input id="limitMinutes" type="number" placeholder="Minutes" min="1" />
+      <button id="setLimitBtn">Set Time Limit</button>
+    </div>
+    <div class="usage-container" id="limitsList"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

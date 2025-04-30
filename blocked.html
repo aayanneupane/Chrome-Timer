@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #f8f9fa;
+      color: #343a40;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .time-info {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    .time-remaining {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Time Limit Reached</h1>
+    <p>You've exceeded your allowed time for this website.</p>
+    
+    <div class="time-info">
+      <div>Time resets at midnight</div>
+      <div class="time-remaining" id="timeRemaining"></div>
+    </div>
+    
+    <button id="goBack">Return to Previous Page</button>
+  </div>
+
+  <script>
+    // Calculate time until midnight
+    function updateTimeRemaining() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      
+      const diff = midnight - now;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      document.getElementById('timeRemaining').textContent = 
+        `${hours}h ${minutes}m remaining`;
+    }
+
+    // Update immediately and every minute
+    updateTimeRemaining();
+    setInterval(updateTimeRemaining, 60000);
+
+    // Go back button
+    document.getElementById('goBack').addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>
